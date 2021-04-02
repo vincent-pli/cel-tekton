@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2019 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ import (
 )
 
 // Validate implements apis.Validatable
-func (d *SimpleDeployment) Validate(ctx context.Context) *apis.FieldError {
-	return d.Spec.Validate(ctx).ViaField("spec")
+func (as *VariableStore) Validate(ctx context.Context) *apis.FieldError {
+	return as.Spec.Validate(ctx).ViaField("spec")
 }
 
 // Validate implements apis.Validatable
-func (ds *SimpleDeploymentSpec) Validate(ctx context.Context) *apis.FieldError {
-	if ds.Image == "" {
-		return apis.ErrMissingField("image")
+func (ass *VariableStoreSpec) Validate(ctx context.Context) *apis.FieldError {
+	if ass.ServiceName == "" {
+		return apis.ErrMissingField("vars")
 	}
 	return nil
 }

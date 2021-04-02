@@ -17,10 +17,18 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"knative.dev/pkg/apis"
 )
 
-// SetDefaults implements apis.Defaultable
-func (as *AddressableService) SetDefaults(ctx context.Context) {
-	// Nothing to default.
+var condSet = apis.NewLivingConditionSet()
+
+// GetGroupVersionKind implements kmeta.OwnerRefable
+func (*VariableStore) GetGroupVersionKind() schema.GroupVersionKind {
+	return SchemeGroupVersion.WithKind("VariableStore")
+}
+
+// GetConditionSet retrieves the condition set for this resource. Implements the KRShaped interface.
+func (as *VariableStore) GetConditionSet() apis.ConditionSet {
+	return condSet
 }
