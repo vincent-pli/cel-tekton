@@ -29,8 +29,5 @@ func (as *VariableStore) Validate(ctx context.Context) *apis.FieldError {
 
 // Validate implements apis.Validatable
 func (ass *VariableStoreSpec) Validate(ctx context.Context) *apis.FieldError {
-	if ass.ServiceName == "" {
-		return apis.ErrMissingField("vars")
-	}
 	return nil
 }
