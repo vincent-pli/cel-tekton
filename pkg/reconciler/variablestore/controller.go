@@ -51,7 +51,7 @@ func NewController(
 		variablestoreLister:    variablestoreInformer.Lister(),
 	}
 
-	impl := addressableservicereconciler.NewImpl(ctx, r)
+	impl := runreconciler.NewImpl(ctx, r)
 	r.Tracker = tracker.New(impl.EnqueueKey, controller.GetTrackerLease(ctx))
 
 	logger.Info("Setting up event handlers.")
