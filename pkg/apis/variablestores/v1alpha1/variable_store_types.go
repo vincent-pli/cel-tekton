@@ -19,7 +19,8 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"knative.dev/pkg/apis"
-	duckv1 "knative.dev/pkg/apis/duck/v1"
+
+	// duckv1 "knative.dev/pkg/apis/duck/v1"
 	"knative.dev/pkg/kmeta"
 )
 
@@ -39,7 +40,7 @@ type VariableStore struct {
 
 	// Status communicates the observed state of the AddressableService (from the controller).
 	// +optional
-	Status VariableStoreStatus `json:"status,omitempty"`
+	// Status VariableStoreStatus `json:"status,omitempty"`
 }
 
 var (
@@ -47,8 +48,8 @@ var (
 	_ apis.Validatable   = (*VariableStore)(nil)
 	_ apis.Defaultable   = (*VariableStore)(nil)
 	_ kmeta.OwnerRefable = (*VariableStore)(nil)
-	// Check that the type conforms to the duck Knative Resource shape.
-	_ duckv1.KRShaped = (*VariableStore)(nil)
+	// // Check that the type conforms to the duck Knative Resource shape.
+	// _ duckv1.KRShaped = (*VariableStore)(nil)
 )
 
 // VariableStoreSpec holds the desired state of the VariableStore (from the client).
@@ -69,10 +70,10 @@ const (
 	AddressableServiceConditionReady = apis.ConditionReady
 )
 
-// VariableStoreStatus communicates the observed state of the AddressableService (from the controller).
-type VariableStoreStatus struct {
-	duckv1.Status `json:",inline"`
-}
+// // VariableStoreStatus communicates the observed state of the AddressableService (from the controller).
+// type VariableStoreStatus struct {
+// 	duckv1.Status `json:",inline"`
+// }
 
 // AddressableServiceList is a list of AddressableService resources
 //
@@ -84,7 +85,7 @@ type VariableStoreList struct {
 	Items []VariableStore `json:"items"`
 }
 
-// GetStatus retrieves the status of the resource. Implements the KRShaped interface.
-func (vs *VariableStore) GetStatus() *duckv1.Status {
-	return &vs.Status.Status
-}
+// // GetStatus retrieves the status of the resource. Implements the KRShaped interface.
+// func (vs *VariableStore) GetStatus() *duckv1.Status {
+// 	return &vs.Status.Status
+// }
