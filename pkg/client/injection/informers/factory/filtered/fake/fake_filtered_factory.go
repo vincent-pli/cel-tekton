@@ -21,13 +21,13 @@ package fakeFilteredFactory
 import (
 	context "context"
 
+	externalversions "github.com/vincentpli/cel-tekton/pkg/client/informers/externalversions"
+	fake "github.com/vincentpli/cel-tekton/pkg/client/injection/client/fake"
+	filtered "github.com/vincentpli/cel-tekton/pkg/client/injection/informers/factory/filtered"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	controller "knative.dev/pkg/controller"
 	injection "knative.dev/pkg/injection"
 	logging "knative.dev/pkg/logging"
-	externalversions "knative.dev/sample-controller/pkg/client/informers/externalversions"
-	fake "knative.dev/sample-controller/pkg/client/injection/client/fake"
-	filtered "knative.dev/sample-controller/pkg/client/injection/informers/factory/filtered"
 )
 
 var Get = filtered.Get

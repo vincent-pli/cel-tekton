@@ -21,10 +21,10 @@ package client
 import (
 	context "context"
 
+	versioned "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned"
 	rest "k8s.io/client-go/rest"
 	injection "knative.dev/pkg/injection"
 	logging "knative.dev/pkg/logging"
-	versioned "knative.dev/sample-controller/pkg/client/clientset/versioned"
 )
 
 func init() {
@@ -47,10 +47,10 @@ func Get(ctx context.Context) versioned.Interface {
 	if untyped == nil {
 		if injection.GetConfig(ctx) == nil {
 			logging.FromContext(ctx).Panic(
-				"Unable to fetch knative.dev/sample-controller/pkg/client/clientset/versioned.Interface from context. This context is not the application context (which is typically given to constructors via sharedmain).")
+				"Unable to fetch github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned.Interface from context. This context is not the application context (which is typically given to constructors via sharedmain).")
 		} else {
 			logging.FromContext(ctx).Panic(
-				"Unable to fetch knative.dev/sample-controller/pkg/client/clientset/versioned.Interface from context.")
+				"Unable to fetch github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned.Interface from context.")
 		}
 	}
 	return untyped.(versioned.Interface)
