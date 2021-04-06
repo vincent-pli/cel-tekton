@@ -13,5 +13,6 @@ require (
 	knative.dev/hack v0.0.0-20210325223819-b6ab329907d3
 	knative.dev/hack/schema v0.0.0-20210325223819-b6ab329907d3
 	knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0
-	knative.dev/sample-controller v0.0.0-20210331073822-cea1a4391358
 )
+
+replace knative.dev/pkg => knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0

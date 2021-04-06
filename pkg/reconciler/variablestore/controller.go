@@ -29,7 +29,7 @@ import (
 	variablestorev1alpha1 "github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
 	variablestoreclient "github.com/vincentpli/cel-tekton/pkg/client/injection/client"
 	runinformer "github.com/tektoncd/pipeline/pkg/client/injection/informers/pipeline/v1alpha1/run"
-	variablestoreinformer "knative.dev/sample-controller/pkg/client/injection/informers/samples/v1alpha1/addressableservice"
+	variablestoreinformer "github.com/vincentpli/cel-tekton/pkg/client/injection/informers/variablestores/v1alpha1/variablestore"
 	runreconciler "github.com/tektoncd/pipeline/pkg/client/injection/reconciler/pipeline/v1alpha1/run"
 )
 

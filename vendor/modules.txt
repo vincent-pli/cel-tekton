@@ -238,7 +238,7 @@ go.uber.org/atomic
 go.uber.org/automaxprocs/internal/cgroups
 go.uber.org/automaxprocs/internal/runtime
 go.uber.org/automaxprocs/maxprocs
-# go.uber.org/multierr v1.6.0
+# go.uber.org/multierr v1.5.0
 go.uber.org/multierr
 # go.uber.org/zap v1.16.0
 ## explicit
@@ -787,7 +787,7 @@ knative.dev/hack/schema/commands
 knative.dev/hack/schema/docs
 knative.dev/hack/schema/registry
 knative.dev/hack/schema/schema
-# knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0
+# knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0 => knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -798,8 +798,6 @@ knative.dev/pkg/changeset
 knative.dev/pkg/client/injection/kube/client
 knative.dev/pkg/client/injection/kube/informers/admissionregistration/v1/mutatingwebhookconfiguration
 knative.dev/pkg/client/injection/kube/informers/admissionregistration/v1/validatingwebhookconfiguration
-knative.dev/pkg/client/injection/kube/informers/core/v1/pod
-knative.dev/pkg/client/injection/kube/informers/core/v1/service
 knative.dev/pkg/client/injection/kube/informers/factory
 knative.dev/pkg/codegen/cmd/injection-gen
 knative.dev/pkg/codegen/cmd/injection-gen/args
@@ -836,27 +834,8 @@ knative.dev/pkg/webhook/configmaps
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/sample-controller v0.0.0-20210331073822-cea1a4391358
-## explicit
-knative.dev/sample-controller/pkg/apis/samples
-knative.dev/sample-controller/pkg/apis/samples/v1alpha1
-knative.dev/sample-controller/pkg/client/clientset/versioned
-knative.dev/sample-controller/pkg/client/clientset/versioned/scheme
-knative.dev/sample-controller/pkg/client/clientset/versioned/typed/samples/v1alpha1
-knative.dev/sample-controller/pkg/client/informers/externalversions
-knative.dev/sample-controller/pkg/client/informers/externalversions/internalinterfaces
-knative.dev/sample-controller/pkg/client/informers/externalversions/samples
-knative.dev/sample-controller/pkg/client/informers/externalversions/samples/v1alpha1
-knative.dev/sample-controller/pkg/client/injection/client
-knative.dev/sample-controller/pkg/client/injection/informers/factory
-knative.dev/sample-controller/pkg/client/injection/informers/samples/v1alpha1/addressableservice
-knative.dev/sample-controller/pkg/client/injection/informers/samples/v1alpha1/simpledeployment
-knative.dev/sample-controller/pkg/client/injection/reconciler/samples/v1alpha1/addressableservice
-knative.dev/sample-controller/pkg/client/injection/reconciler/samples/v1alpha1/simpledeployment
-knative.dev/sample-controller/pkg/client/listers/samples/v1alpha1
-knative.dev/sample-controller/pkg/reconciler/addressableservice
-knative.dev/sample-controller/pkg/reconciler/simpledeployment
 # sigs.k8s.io/structured-merge-diff/v4 v4.0.2
 sigs.k8s.io/structured-merge-diff/v4/value
 # sigs.k8s.io/yaml v1.2.0
 sigs.k8s.io/yaml
+# knative.dev/pkg => knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0

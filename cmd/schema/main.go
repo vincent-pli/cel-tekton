@@ -22,15 +22,14 @@ import (
 	"knative.dev/hack/schema/commands"
 	"knative.dev/hack/schema/registry"
 
-	v1alpha1 "knative.dev/sample-controller/pkg/apis/samples/v1alpha1"
+	"github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
 )
 
 // schema is a tool to dump the schema for Eventing resources.
 func main() {
-	registry.Register(&v1alpha1.AddressableService{})
-	registry.Register(&v1alpha1.SimpleDeployment{})
+	registry.Register(&v1alpha1.VariableStore{})
 
-	if err := commands.New("knative.dev/sample-controller").Execute(); err != nil {
+	if err := commands.New("github.com/vincentpli/cel-tekton").Execute(); err != nil {
 		log.Fatal("Error during command execution: ", err)
 	}
 }
