@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package addressableservice
+package variablestore
 
 import (
 	"context"
@@ -28,8 +28,8 @@ import (
 	"knative.dev/pkg/network"
 	"knative.dev/pkg/reconciler"
 	"knative.dev/pkg/tracker"
-	samplesv1alpha1 "knative.dev/sample-controller/pkg/apis/samples/v1alpha1"
-	addressableservicereconciler "knative.dev/sample-controller/pkg/client/injection/reconciler/samples/v1alpha1/addressableservice"
+	variablestorev1alpha1 "github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
+	variablestorereconciler "github.com/vincentpli/cel-tekton/pkg/client/injection/reconciler/variablestores/v1alpha1/variablestore"
 )
 
 // Reconciler implements addressableservicereconciler.Interface for
@@ -39,8 +39,14 @@ type Reconciler struct {
 	// so that we can immediately react to changes tracked resources.
 	Tracker tracker.Interface
 
+	//Clientset about resources
+	pipelineClientSet  clientset.Interface
+	exceptionClientSet exceptionclientset.Interface
+
 	// Listers index properties about resources
-	ServiceLister corev1listers.ServiceLister
+	runLister         listersalpha.RunLister
+	exceptionLister   listersexception.ExceptionLister
+	pipelineRunLister listers.PipelineRunLister
 }
 
 // Check that our Reconciler implements Interface

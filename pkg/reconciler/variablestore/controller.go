@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package addressableservice
+package variablestore
 
 import (
 	"context"
@@ -26,9 +26,11 @@ import (
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
 
-	svcinformer "knative.dev/pkg/client/injection/kube/informers/core/v1/service"
-	addressableserviceinformer "knative.dev/sample-controller/pkg/client/injection/informers/samples/v1alpha1/addressableservice"
-	addressableservicereconciler "knative.dev/sample-controller/pkg/client/injection/reconciler/samples/v1alpha1/addressableservice"
+	variablestorev1alpha1 "github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
+	variablestoreclient "github.com/vincentpli/cel-tekton/pkg/client/injection/client"
+	runinformer "github.com/tektoncd/pipeline/pkg/client/injection/informers/pipeline/v1alpha1/run"
+	variablestoreinformer "knative.dev/sample-controller/pkg/client/injection/informers/samples/v1alpha1/addressableservice"
+	runreconciler "github.com/tektoncd/pipeline/pkg/client/injection/reconciler/pipeline/v1alpha1/run"
 )
 
 // NewController creates a Reconciler and returns the result of NewImpl.
@@ -38,12 +40,17 @@ func NewController(
 ) *controller.Impl {
 	logger := logging.FromContext(ctx)
 
-	addressableserviceInformer := addressableserviceinformer.Get(ctx)
-	svcInformer := svcinformer.Get(ctx)
+	variablestoreclientset := variablestoreclient.Get(ctx)
+
+	runInformer := runinformer.Get(ctx)
+	variablestoreInformer := variablestoreinformer.Get(ctx)
 
 	r := &Reconciler{
-		ServiceLister: svcInformer.Lister(),
+		variablestoreClientSet: variablestoreclientset,
+		runLister:          runInformer.Lister(),
+		variablestoreLister:    variablestoreInformer.Lister(),
 	}
+
 	impl := addressableservicereconciler.NewImpl(ctx, r)
 	r.Tracker = tracker.New(impl.EnqueueKey, controller.GetTrackerLease(ctx))
 
