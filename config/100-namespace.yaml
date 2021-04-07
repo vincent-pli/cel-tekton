@@ -15,7 +15,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: knative-samples
+  name: tekton-cel
   labels:
-    istio-injection: enabled
+    istio-injection: disabled
     samples.knative.dev/release: devel

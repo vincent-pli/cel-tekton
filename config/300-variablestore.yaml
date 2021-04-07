@@ -12,17 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
 metadata:
-  name: tekton-variablestores-controller-admin
+  name: variablestores.custom.tekton.dev
   labels:
     samples.knative.dev/release: devel
-subjects:
-  - kind: ServiceAccount
-    name: controller
-    namespace: tekton-cel
-roleRef:
-  kind: ClusterRole
-  name: tekton-variablestores-admin
-  apiGroup: rbac.authorization.k8s.io
+    knative.dev/crd-install: "true"
+spec:
+  group: custom.tekton.dev
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: { }
+      schema:
+        openAPIV3Schema:
+          type: object
+  names:
+    kind: VariableStore
+    plural: variablestores
+    singular: variablestore
+    categories:
+    - all
+    - tekton
+    shortNames:
+    - sv
+  scope: Namespaced

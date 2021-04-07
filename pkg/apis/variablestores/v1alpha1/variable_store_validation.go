@@ -19,15 +19,22 @@ package v1alpha1
 import (
 	"context"
 
+	"github.com/tektoncd/pipeline/pkg/apis/validate"
 	"knative.dev/pkg/apis"
 )
 
 // Validate implements apis.Validatable
-func (as *VariableStore) Validate(ctx context.Context) *apis.FieldError {
-	return as.Spec.Validate(ctx).ViaField("spec")
+func (vs *VariableStore) Validate(ctx context.Context) *apis.FieldError {
+	if err := validate.ObjectMetadata(vs.GetObjectMeta()); err != nil {
+		return err.ViaField("metadata")
+	}
+	return vs.Spec.Validate(ctx).ViaField("spec")
 }
 
 // Validate implements apis.Validatable
-func (ass *VariableStoreSpec) Validate(ctx context.Context) *apis.FieldError {
+func (vss *VariableStoreSpec) Validate(ctx context.Context) *apis.FieldError {
+	if vss.Vars == nil {
+		return apis.ErrMissingField("spec.vars")
+	}
 	return nil
 }

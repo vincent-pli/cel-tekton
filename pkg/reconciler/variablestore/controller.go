@@ -21,16 +21,16 @@ import (
 
 	"knative.dev/pkg/tracker"
 
-	corev1 "k8s.io/api/core/v1"
 	"knative.dev/pkg/configmap"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
 
+	runinformer "github.com/tektoncd/pipeline/pkg/client/injection/informers/pipeline/v1alpha1/run"
+	runreconciler "github.com/tektoncd/pipeline/pkg/client/injection/reconciler/pipeline/v1alpha1/run"
+	pipelinecontroller "github.com/tektoncd/pipeline/pkg/controller"
 	variablestorev1alpha1 "github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
 	variablestoreclient "github.com/vincentpli/cel-tekton/pkg/client/injection/client"
-	runinformer "github.com/tektoncd/pipeline/pkg/client/injection/informers/pipeline/v1alpha1/run"
-	variablestoreinformer "github.com/vincentpli/cel-tekton/pkg/client/injection/informers/variablestores/v1alpha1/variablestore"
-	runreconciler "github.com/tektoncd/pipeline/pkg/client/injection/reconciler/pipeline/v1alpha1/run"
+	"k8s.io/client-go/tools/cache"
 )
 
 // NewController creates a Reconciler and returns the result of NewImpl.
@@ -43,12 +43,10 @@ func NewController(
 	variablestoreclientset := variablestoreclient.Get(ctx)
 
 	runInformer := runinformer.Get(ctx)
-	variablestoreInformer := variablestoreinformer.Get(ctx)
 
 	r := &Reconciler{
 		variablestoreClientSet: variablestoreclientset,
-		runLister:          runInformer.Lister(),
-		variablestoreLister:    variablestoreInformer.Lister(),
+		runLister:              runInformer.Lister(),
 	}
 
 	impl := runreconciler.NewImpl(ctx, r)
@@ -56,17 +54,10 @@ func NewController(
 
 	logger.Info("Setting up event handlers.")
 
-	addressableserviceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
-
-	svcInformer.Informer().AddEventHandler(controller.HandleAll(
-		// Call the tracker's OnChanged method, but we've seen the objects
-		// coming through this path missing TypeMeta, so ensure it is properly
-		// populated.
-		controller.EnsureTypeMeta(
-			r.Tracker.OnChanged,
-			corev1.SchemeGroupVersion.WithKind("Service"),
-		),
-	))
+	runInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
+		FilterFunc: pipelinecontroller.FilterRunRef(variablestorev1alpha1.SchemeGroupVersion.String(), "VariableStore"),
+		Handler:    controller.HandleAll(impl.Enqueue),
+	})
 
 	return impl
 }

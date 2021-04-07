@@ -17,5 +17,5 @@ limitations under the License.
 package variablestores
 
 const (
-	GroupName = "variablestores.tekton.dev"
+	GroupName = "custom.tekton.dev"
 )

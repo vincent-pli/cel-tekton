@@ -52,6 +52,35 @@ var (
 	// _ duckv1.KRShaped = (*VariableStore)(nil)
 )
 
+// VariableStoreRunReason represents a reason for the Run "Succeeded" condition
+type VariableStoreRunReason string
+
+const (
+	// VariableStoreReasonCouldntGet indicates that the associated Exception couldn't be retrieved
+	VariableStoreReasonCouldntGet VariableStoreRunReason = "CouldntGet"
+
+	// ReasonFailedValidation indicates that the reason for failure status is that Run failed runtime validation
+	ReasonFailedValidation VariableStoreRunReason = "RunValidationFailed"
+
+	// ReasonSyntaxError indicates that the reason for failure status is that a CEL expression couldn't be parsed
+	ReasonSyntaxError VariableStoreRunReason = "SyntaxError"
+
+	// ReasonEvaluationError indicates that the reason for failure status is that a CEL expression couldn't be evaluated
+	// typically due to evaluation environment or executable program
+	ReasonEvaluationError VariableStoreRunReason = "EvaluationError"
+
+	// ReasonEvaluationSuccess indicates that the reason for the success status is that all CEL expressions were
+	// evaluated successfully and the results were produced
+	ReasonEvaluationSuccess VariableStoreRunReason = "EvaluationSuccess"
+
+	// VariableStoreReasonUpdateFaild
+	VariableStoreReasonUpdateFaild VariableStoreRunReason = "UpdateFaild"
+)
+
+func (e VariableStoreRunReason) String() string {
+	return string(e)
+}
+
 // VariableStoreSpec holds the desired state of the VariableStore (from the client).
 type VariableStoreSpec struct {
 	// Vars holds the predefined variables and these variabls will be the context for next caculation.
