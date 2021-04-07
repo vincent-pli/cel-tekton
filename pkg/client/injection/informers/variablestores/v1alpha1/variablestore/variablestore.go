@@ -37,7 +37,7 @@ type Key struct{}
 
 func withInformer(ctx context.Context) (context.Context, controller.Informer) {
 	f := factory.Get(ctx)
-	inf := f.Variablestores().V1alpha1().VariableStores()
+	inf := f.Custom().V1alpha1().VariableStores()
 	return context.WithValue(ctx, Key{}, inf), inf.Informer()
 }
 

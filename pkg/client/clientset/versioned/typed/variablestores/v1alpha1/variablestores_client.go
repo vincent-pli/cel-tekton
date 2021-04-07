@@ -24,22 +24,22 @@ import (
 	rest "k8s.io/client-go/rest"
 )
 
-type VariablestoresV1alpha1Interface interface {
+type CustomV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	VariableStoresGetter
 }
 
-// VariablestoresV1alpha1Client is used to interact with features provided by the variablestores.tekton.dev group.
-type VariablestoresV1alpha1Client struct {
+// CustomV1alpha1Client is used to interact with features provided by the custom.tekton.dev group.
+type CustomV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *VariablestoresV1alpha1Client) VariableStores(namespace string) VariableStoreInterface {
+func (c *CustomV1alpha1Client) VariableStores(namespace string) VariableStoreInterface {
 	return newVariableStores(c, namespace)
 }
 
-// NewForConfig creates a new VariablestoresV1alpha1Client for the given config.
-func NewForConfig(c *rest.Config) (*VariablestoresV1alpha1Client, error) {
+// NewForConfig creates a new CustomV1alpha1Client for the given config.
+func NewForConfig(c *rest.Config) (*CustomV1alpha1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -48,12 +48,12 @@ func NewForConfig(c *rest.Config) (*VariablestoresV1alpha1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &VariablestoresV1alpha1Client{client}, nil
+	return &CustomV1alpha1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new VariablestoresV1alpha1Client for the given config and
+// NewForConfigOrDie creates a new CustomV1alpha1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *VariablestoresV1alpha1Client {
+func NewForConfigOrDie(c *rest.Config) *CustomV1alpha1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -61,9 +61,9 @@ func NewForConfigOrDie(c *rest.Config) *VariablestoresV1alpha1Client {
 	return client
 }
 
-// New creates a new VariablestoresV1alpha1Client for the given RESTClient.
-func New(c rest.Interface) *VariablestoresV1alpha1Client {
-	return &VariablestoresV1alpha1Client{c}
+// New creates a new CustomV1alpha1Client for the given RESTClient.
+func New(c rest.Interface) *CustomV1alpha1Client {
+	return &CustomV1alpha1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -81,7 +81,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *VariablestoresV1alpha1Client) RESTClient() rest.Interface {
+func (c *CustomV1alpha1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

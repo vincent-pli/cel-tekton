@@ -44,7 +44,7 @@ import (
 
 const (
 	defaultControllerAgentName = "variablestore-controller"
-	defaultFinalizerName       = "variablestores.variablestores.tekton.dev"
+	defaultFinalizerName       = "variablestores.custom.tekton.dev"
 )
 
 // NewImpl returns a controller.Impl that handles queuing and feeding work from
@@ -92,7 +92,7 @@ func NewImpl(ctx context.Context, r Interface, optionsFns ...controller.OptionsF
 
 	logger = logger.With(
 		zap.String(logkey.ControllerType, ctrTypeName),
-		zap.String(logkey.Kind, "variablestores.tekton.dev.VariableStore"),
+		zap.String(logkey.Kind, "custom.tekton.dev.VariableStore"),
 	)
 
 	impl := controller.NewImpl(rec, logger, ctrTypeName)

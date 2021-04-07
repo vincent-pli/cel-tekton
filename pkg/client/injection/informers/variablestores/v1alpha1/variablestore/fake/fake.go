@@ -35,6 +35,6 @@ func init() {
 
 func withInformer(ctx context.Context) (context.Context, controller.Informer) {
 	f := fake.Get(ctx)
-	inf := f.Variablestores().V1alpha1().VariableStores()
+	inf := f.Custom().V1alpha1().VariableStores()
 	return context.WithValue(ctx, variablestore.Key{}, inf), inf.Informer()
 }

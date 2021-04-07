@@ -316,7 +316,7 @@ func (r *reconcilerImpl) updateFinalizersFiltered(ctx context.Context, resource 
 		return resource, err
 	}
 
-	patcher := r.Client.VariablestoresV1alpha1().VariableStores(resource.Namespace)
+	patcher := r.Client.CustomV1alpha1().VariableStores(resource.Namespace)
 
 	resourceName := resource.Name
 	updated, err := patcher.Patch(ctx, resourceName, types.MergePatchType, patch, metav1.PatchOptions{})
