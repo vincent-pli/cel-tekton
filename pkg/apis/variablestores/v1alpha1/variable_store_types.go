@@ -27,7 +27,7 @@ import (
 // VariableStore is a context or variables storage to help caculate the CEL expression.
 //
 // +genclient
-// +genreconciler
+// +genreconciler:krshapedlogic=false
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type VariableStore struct {
 	metav1.TypeMeta `json:",inline"`
