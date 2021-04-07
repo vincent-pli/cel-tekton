@@ -102,18 +102,6 @@ func (c *FakeVariableStores) Update(ctx context.Context, variableStore *v1alpha1
 	return obj.(*v1alpha1.VariableStore), err
 }
 
-// UpdateStatus was generated because the type contains a Status member.
-// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeVariableStores) UpdateStatus(ctx context.Context, variableStore *v1alpha1.VariableStore, opts v1.UpdateOptions) (*v1alpha1.VariableStore, error) {
-	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(variablestoresResource, "status", c.ns, variableStore), &v1alpha1.VariableStore{})
-
-	if obj == nil {
-		return nil, err
-	}
-	return obj.(*v1alpha1.VariableStore), err
-}
-
 // Delete takes name of the variableStore and deletes it. Returns an error if one occurs.
 func (c *FakeVariableStores) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
