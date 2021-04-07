@@ -62,13 +62,13 @@ func NewFilteredVariableStoreInformer(client versioned.Interface, namespace stri
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SamplesV1alpha1().VariableStores(namespace).List(context.TODO(), options)
+				return client.VariablestoresV1alpha1().VariableStores(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SamplesV1alpha1().VariableStores(namespace).Watch(context.TODO(), options)
+				return client.VariablestoresV1alpha1().VariableStores(namespace).Watch(context.TODO(), options)
 			},
 		},
 		&variablestoresv1alpha1.VariableStore{},

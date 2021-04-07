@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package samples
+package variablestores
 
 const (
-	GroupName = "samples.knative.dev"
+	GroupName = "variablestores.tekton.dev"
 )

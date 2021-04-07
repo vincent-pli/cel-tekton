@@ -56,7 +56,7 @@ type variableStores struct {
 }
 
 // newVariableStores returns a VariableStores
-func newVariableStores(c *SamplesV1alpha1Client, namespace string) *variableStores {
+func newVariableStores(c *VariablestoresV1alpha1Client, namespace string) *variableStores {
 	return &variableStores{
 		client: c.RESTClient(),
 		ns:     namespace,

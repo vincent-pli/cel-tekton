@@ -32,13 +32,13 @@ import (
 
 // FakeVariableStores implements VariableStoreInterface
 type FakeVariableStores struct {
-	Fake *FakeSamplesV1alpha1
+	Fake *FakeVariablestoresV1alpha1
 	ns   string
 }
 
-var variablestoresResource = schema.GroupVersionResource{Group: "samples.knative.dev", Version: "v1alpha1", Resource: "variablestores"}
+var variablestoresResource = schema.GroupVersionResource{Group: "variablestores.tekton.dev", Version: "v1alpha1", Resource: "variablestores"}
 
-var variablestoresKind = schema.GroupVersionKind{Group: "samples.knative.dev", Version: "v1alpha1", Kind: "VariableStore"}
+var variablestoresKind = schema.GroupVersionKind{Group: "variablestores.tekton.dev", Version: "v1alpha1", Kind: "VariableStore"}
 
 // Get takes name of the variableStore, and returns the corresponding variableStore object, and an error if there is any.
 func (c *FakeVariableStores) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.VariableStore, err error) {

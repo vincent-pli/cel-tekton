@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned"
-	samplesv1alpha1 "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned/typed/variablestores/v1alpha1"
-	fakesamplesv1alpha1 "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned/typed/variablestores/v1alpha1/fake"
+	variablestoresv1alpha1 "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned/typed/variablestores/v1alpha1"
+	fakevariablestoresv1alpha1 "github.com/vincentpli/cel-tekton/pkg/client/clientset/versioned/typed/variablestores/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -76,7 +76,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// SamplesV1alpha1 retrieves the SamplesV1alpha1Client
-func (c *Clientset) SamplesV1alpha1() samplesv1alpha1.SamplesV1alpha1Interface {
-	return &fakesamplesv1alpha1.FakeSamplesV1alpha1{Fake: &c.Fake}
+// VariablestoresV1alpha1 retrieves the VariablestoresV1alpha1Client
+func (c *Clientset) VariablestoresV1alpha1() variablestoresv1alpha1.VariablestoresV1alpha1Interface {
+	return &fakevariablestoresv1alpha1.FakeVariablestoresV1alpha1{Fake: &c.Fake}
 }
