@@ -210,7 +210,7 @@ func (r *Reconciler) reconcile(ctx context.Context, run *v1alpha1.Run) error {
 
 	// Update VariableStore ??? variablestore do not existed
 	if variablestore != nil {
-		_, err = r.variablestoreClientSet.VariablestoresV1alpha1().VariableStores(run.Namespace).Update(ctx, variablestore, metav1.UpdateOptions{})
+		_, err = r.variablestoreClientSet.CustomV1alpha1().VariableStores(run.Namespace).Update(ctx, variablestore, metav1.UpdateOptions{})
 		if err != nil {
 			logger.Errorf("Update VariableStore: %s hit excetion: %v", variablestore.Name, err)
 			run.Status.MarkRunFailed(variablestorev1alpha1.VariableStoreReasonUpdateFaild.String(),
@@ -230,7 +230,7 @@ func (r *Reconciler) getVariableStore(ctx context.Context, run *v1alpha1.Run) (*
 		// the TaskLoop is not yet in the lister cache if it is created at nearly the same time as the Run.
 		// See https://github.com/tektoncd/pipeline/issues/2740 for discussion on this issue.
 		//
-		vs, err := r.variablestoreClientSet.VariablestoresV1alpha1().VariableStores(run.Namespace).Get(ctx, run.Spec.Ref.Name, metav1.GetOptions{})
+		vs, err := r.variablestoreClientSet.CustomV1alpha1().VariableStores(run.Namespace).Get(ctx, run.Spec.Ref.Name, metav1.GetOptions{})
 		if err != nil {
 			return nil, err
 		}
