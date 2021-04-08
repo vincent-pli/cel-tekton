@@ -26,6 +26,6 @@ import (
 
 func main() {
 	sharedmain.Main("controller",
-		variableestore.NewController,
+		variablestore.NewController,
 	)
 }

@@ -23,6 +23,7 @@ import (
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
+	"github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
 	runreconciler "github.com/tektoncd/pipeline/pkg/client/injection/reconciler/pipeline/v1alpha1/run"
 	listersalpha "github.com/tektoncd/pipeline/pkg/client/listers/pipeline/v1alpha1"
 	variablestorev1alpha1 "github.com/vincentpli/cel-tekton/pkg/apis/variablestores/v1alpha1"
@@ -143,6 +144,11 @@ func (r *Reconciler) reconcile(ctx context.Context, run *v1alpha1.Run) error {
 	// If refrenced VariableStore not null, all variables in that will be the context
 	if variablestore != nil {
 		for _, variable := range variablestore.Spec.Vars {
+			contain, _ := containsVar(variable.Name, run.Spec.Params)
+			if contain {
+				continue
+			}
+
 			contextExpressions[variable.Name] = variable.Value
 			env, err = env.Extend(cel.Declarations(decls.NewVar(variable.Name, decls.Any)))
 			if err != nil {
@@ -203,7 +209,13 @@ func (r *Reconciler) reconcile(ctx context.Context, run *v1alpha1.Run) error {
 				Name:  param.Name,
 				Value: fmt.Sprintf("%s", out.ConvertToType(types.StringType).Value()),
 			}
-			variablestore.Spec.Vars = append(variablestore.Spec.Vars, variable)
+
+			contain, index := containsParam(param.Name, variablestore.Spec.Vars)
+			if contain {
+				variablestore.Spec.Vars[index] = variable
+			} else {
+				variablestore.Spec.Vars = append(variablestore.Spec.Vars, variable)
+			}
 		}
 
 	}
@@ -218,6 +230,10 @@ func (r *Reconciler) reconcile(ctx context.Context, run *v1alpha1.Run) error {
 			return nil
 		}
 	}
+
+	run.Status.Results = append(run.Status.Results, runResults...)
+	run.Status.MarkRunSucceeded(variablestorev1alpha1.ReasonEvaluationSuccess.String(),
+		"CEL expressions were evaluated successfully")
 
 	return nil
 }
@@ -262,4 +278,24 @@ func validateExpressionsType(run *v1alpha1.Run) (errs *apis.FieldError) {
 		}
 	}
 	return errs
+}
+
+func containsVar(varName string, params []v1beta1.Param) (bool, int) {
+	for index, param := range params {
+		if param.Name == varName {
+			return true, index
+		}
+	}
+
+	return false, -1
+}
+
+func containsParam(paramName string, vars []variablestorev1alpha1.Var) (bool, int) {
+	for index, variable := range vars {
+		if variable.Name == paramName {
+			return true, index
+		}
+	}
+
+	return false, -1
 }

@@ -1,0 +1,11 @@
+apiVersion: custom.tekton.dev/v1alpha1
+kind: VariableStore
+metadata:
+  name: example
+  namespace: default
+spec:
+  vars:
+  - name: context_one
+    value: hello
+  - name: context_two
+    value: world
