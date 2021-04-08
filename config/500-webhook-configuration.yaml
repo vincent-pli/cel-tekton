@@ -15,7 +15,7 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: defaulting.webhook.tekton-variablestores.tekton.dev
+  name: defaulting.webhook.tekton-cel.tekton.dev
   labels:
     samples.knative.dev/release: devel
 webhooks:
@@ -26,12 +26,12 @@ webhooks:
       name: webhook
       namespace: tekton-cel
   failurePolicy: Fail
-  name: defaulting.webhook.tekton-variablestores.tekton.dev
+  name: defaulting.webhook.tekton-cel.tekton.dev
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: validation.webhook.tekton-variablestores.tekton.dev
+  name: validation.webhook.tekton-cel.tekton.dev
   labels:
     samples.knative.dev/release: devel
 webhooks:
@@ -40,14 +40,14 @@ webhooks:
   clientConfig:
     service:
       name: webhook
-      namespace: knative-samples
+      namespace: tekton-cel
   failurePolicy: Fail
-  name: validation.webhook.tekton-variablestores.tekton.dev
+  name: validation.webhook.tekton-cel.tekton.dev
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: config.webhook.tekton-variablestores.tekton.dev
+  name: config.webhook.tekton-cel.tekton.dev
   labels:
     serving.knative.dev/release: devel
 webhooks:
@@ -56,9 +56,9 @@ webhooks:
   clientConfig:
     service:
       name: webhook
-      namespace: knative-samples
+      namespace: tekton-cel
   failurePolicy: Fail
-  name: config.webhook.tekton-variablestores.tekton.dev
+  name: config.webhook.tekton-cel.tekton.dev
   namespaceSelector:
     matchExpressions:
     - key: samples.knative.dev/release
