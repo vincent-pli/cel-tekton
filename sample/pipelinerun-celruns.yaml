@@ -3,28 +3,37 @@ kind: PipelineRun
 metadata:
   generateName: example-pr-
 spec:
-  serviceAccountName: 'default'
+  serviceAccountName: 'rete-limit'
   pipelineSpec:
     params:
       - name: red
         type: string
-      - name: type
+      - name: job_severity
+        type: string
+      - name: types
+        type: string
+      - name: alert_enable
         type: string
     tasks:
       - name: is-red
         taskRef:
-          apiVersion: cel.tekton.dev/v1alpha1
-          kind: CEL
+          apiVersion: custom.tekton.dev/v1alpha1
+          kind: VariableStore
         params:
           - name: red
             value: "$(params.red)"
-      - name: get-type
+      - name: with-context
         taskRef:
-          apiVersion: cel.tekton.dev/v1alpha1
-          kind: CEL
+          apiVersion: custom.tekton.dev/v1alpha1
+          kind: VariableStore
+          name: example
         params:
-          - name: type
-            value: "$(params.type)"
+          - name: job_severity
+            value: "$(params.job_severity)"
+          - name: types
+            value: "$(params.types)"
+          - name: alert_enable
+            value: "$(params.alert_enable)"
       - name: echo-is-red
         when:
           - input: "$(tasks.is-red.results.red)"
@@ -35,18 +44,22 @@ spec:
             - name: echo
               image: ubuntu
               script: echo ISRED!
-      - name: echo-get-type
+      - name: echo-job-severity
         when:
-          - input: "$(tasks.get-type.results.type)"
+          - input: "$(tasks.with-context.results.job_severity)"
             operator: in
-            values: ["int"]
+            values: ["Sev-1"]
         taskSpec:
           steps:
             - name: echo
               image: ubuntu
-              script: echo ISINT!
+              script: echo IS Sev-1!
   params:
     - name: red
       value: "{'blue': '0x000080', 'red': '0xFF0000'}['red'] == '0xFF0000'"
-    - name: type
-      value: "type(1)"
+    - name: job_severity
+      value: "job_priority in ['high', 'normal'] ? 'Sev-1' : 'Sev-2'"
+    - name: types
+      value: "type(job_severity)"
+    - name: alert_enable
+      value: "false"

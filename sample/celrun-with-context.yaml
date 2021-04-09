@@ -8,9 +8,9 @@ spec:
     kind: VariableStore
     name: example
   params:
-    - name: name
-      value: "'hello' + context_one"
+    - name: job_severity
+      value: "job_priority in ['high', 'normal'] ? 'Sev-1' : 'Sev-2'"
     - name: types
-      value: "type(name)"
-    - name: expression-use-context
-      value: "name + ' is type of name and types' + types"
+      value: "type(job_severity)"
+    - name: alert_enable
+      value: "false" 
